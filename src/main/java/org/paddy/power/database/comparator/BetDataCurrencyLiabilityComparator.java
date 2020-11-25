@@ -4,13 +4,28 @@ import java.util.Comparator;
 
 import org.paddy.power.dto.ReportDao;
 
+/**
+ * Comparator to sort the BetReport .
+ */
 public class BetDataCurrencyLiabilityComparator implements Comparator<ReportDao> {
+
+    /**
+     * Method sort the BetReport data by currency and totalLiability (stakes*price) in descending order.
+     * 
+     * @param o1
+     *            first Report dao
+     * @param o2
+     *            second Report dao
+     * @return int a negative integer, zero, or a positive integer
+     */
     @Override
     public int compare(final ReportDao o1, final ReportDao o2) {
         int value = o2.getCurrency().compareTo(o1.getCurrency());
         if (value == 0) {
-            return Double.compare(Double.parseDouble(o2.getTotalLiability().substring(1)),
-                    Double.parseDouble(o1.getTotalLiability().substring(1)));
+            String totalLiability2 = o2.getTotalLiability().substring(1);
+            String totalLiability1 = o1.getTotalLiability().substring(1);
+            return Double.compare(Double.parseDouble(totalLiability2),
+                    Double.parseDouble(totalLiability1));
         } else {
             return value;
         }

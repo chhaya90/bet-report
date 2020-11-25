@@ -14,7 +14,6 @@ public class ConsoleWrite implements Writer {
                 "Number_Of_Bets", "|", "Total Stakes", "|", "Total Liability"));
         System.out.println(String.format("%s", "-------------------------------------------" +
                 "------------------------------------------------------------------------------"));
-
         betData.forEach(x -> System.out.println(String.format("%30s %5s %10s %5s %14d %5s %20s %5s %20s", x.getSelectionName(), "|",
                 x.getCurrency(), "|", x.getNumberOfBets(), "|", x.getTotalStakes(), "|", x.getTotalLiability())));
     }
@@ -24,11 +23,16 @@ public class ConsoleWrite implements Writer {
 
         System.out.println(String.format("%10s %5s %10s %5s %20s %5s %20s", "Currency", "|",
                 "Number_Of_Bets", "|", "Total Stakes", "|", "Total Liability"));
+
         System.out.println(String.format("%s", "-------------------------------------------" +
                 "------------------------------------------------------------------------------"));
 
-        betData.forEach(x -> System.out.println(String.format("%10s %5s %14d %5s %20s %5s %20s",
-                x.getCurrency(), "|", x.getNumberOfBets(), "|", x.getTotalStakes(), "|", x.getTotalLiability())));
+        betData.forEach(x -> {
+            System.out.println(
+                    String.format("%10s %5s %14d %5s %20s %5s %20s",
+                            x.getCurrency(), "|", x.getNumberOfBets(), "|", x.getTotalStakes(), "|", x.getTotalLiability()));
+
+        });
     }
 
     @Override

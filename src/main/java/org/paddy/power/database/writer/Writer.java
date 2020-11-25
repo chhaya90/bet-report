@@ -4,7 +4,13 @@ import java.util.List;
 
 import org.paddy.power.dto.ReportDao;
 
+/**
+ * Interface to write BetData to output.
+ */
 public interface Writer {
+    /***
+     *
+     */
     void write();
 
     void writeTotalLiabilityReport();

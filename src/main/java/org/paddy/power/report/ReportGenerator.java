@@ -2,12 +2,14 @@ package org.paddy.power.report;
 
 import static org.paddy.power.utils.Constants.RESOURCE_FILE_PATH;
 
-import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,31 +20,30 @@ import org.paddy.power.database.reader.Reader;
 import org.paddy.power.database.writer.Writer;
 import org.paddy.power.dto.BetData;
 import org.paddy.power.dto.ReportDao;
-import org.paddy.power.utils.CsvUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ReportGenerator {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CsvUtils.class);
-    private final Map<String, String> currencySymbolMap;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportGenerator.class);
+    private final Map<String, Locale> currencyLocaleMap;
     private final DecimalFormat decimalFormat;
     private List<BetData> betDataRecords;
     private Reader reader;
     private Writer writer;
 
-    ReportGenerator(final Reader reader, final Writer writer) {
+    public ReportGenerator(final Reader reader, final Writer writer) {
         this.reader = reader;
         this.writer = writer;
-        currencySymbolMap = new HashMap<>();
-        currencySymbolMap.put(" GBP", "£");
-        currencySymbolMap.put(" EUR", "€");
+        currencyLocaleMap = new HashMap<>();
+        currencyLocaleMap.put("EUR", Locale.UK);
+        currencyLocaleMap.put("GBP", Locale.UK);
         decimalFormat = new DecimalFormat("##.00");
     }
 
-    public void readBetDataFromCsv() throws IOException {
+    public void readBetDataFromCsv() throws BetDataException {
         try {
-            betDataRecords = reader.read(RESOURCE_FILE_PATH);
-        } catch (final IOException e) {
+            betDataRecords = reader.read();
+        } catch (BetDataException e) {
             LOGGER.error("Error reading csv from filepath: {}", RESOURCE_FILE_PATH, e);
             throw e;
         }
@@ -97,8 +98,9 @@ public class ReportGenerator {
         rd.setSelectionName(name);
         rd.setCurrency(currency);
         rd.setNumberOfBets(betData.size());
-        rd.setTotalStakes(currencySymbolMap.get(currency) + decimalFormat.format(totalStake));
-        rd.setTotalLiability(currencySymbolMap.get(currency) + decimalFormat.format(totalLiability));
+        String symbol = Currency.getInstance(currency.trim()).getSymbol(currencyLocaleMap.get(currency.trim()));
+        rd.setTotalStakes(symbol + decimalFormat.format(totalStake));
+        rd.setTotalLiability(symbol + decimalFormat.format(totalLiability));
         return rd;
     }
 
