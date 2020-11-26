@@ -1,9 +1,11 @@
 package org.paddy.power.dto;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class BetReport implements Serializable {
+/**
+ * Object to store Bet Report.
+ */
+public class BetReport {
 
     private String selectionName;
     private String currency;
@@ -53,7 +55,7 @@ public class BetReport implements Serializable {
 
     @Override
     public String toString() {
-        return "ReportDao{" + "selectionName='" + selectionName + '\'' + ", currency='" + currency + '\'' + ", numberOfBets=" + numberOfBets + ", " +
+        return "BetReport{" + "selectionName='" + selectionName + '\'' + ", currency='" + currency + '\'' + ", numberOfBets=" + numberOfBets + ", " +
                 "totalStakes='" + totalStakes + '\'' + ", totalLiability='" + totalLiability + '\'' + '}';
     }
 
@@ -66,7 +68,9 @@ public class BetReport implements Serializable {
             return false;
         }
         BetReport betReport = (BetReport) o;
-        return Objects.equals(selectionName, betReport.selectionName) && Objects.equals(currency, betReport.currency) && Objects.equals(numberOfBets, betReport.numberOfBets) && Objects.equals(totalStakes, betReport.totalStakes) && Objects.equals(totalLiability, betReport.totalLiability);
+        return Objects.equals(selectionName, betReport.selectionName) && Objects.equals(currency, betReport.currency)
+                && Objects.equals(numberOfBets, betReport.numberOfBets) && Objects.equals(totalStakes, betReport.totalStakes)
+                && Objects.equals(totalLiability, betReport.totalLiability);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.paddy.power.dto.CsvBetRecord;
+import org.paddy.power.dto.BetRecord;
 
 /**
  * Unit Tests for {@link FileRead} class.
@@ -28,7 +28,7 @@ public class FileReadTest {
     @Test
     public void whenReadingBetData_thenRequiredNumberOfRecordIsRead() throws Exception {
         reader = new FileRead("/bet_data_test.csv");
-        final List<CsvBetRecord> li = reader.read();
+        final List<BetRecord> li = reader.read();
         assertThat(li.size(), is(6));
     }
 
@@ -37,7 +37,7 @@ public class FileReadTest {
         reader = new FileRead("/et_data.csv");
         expectedExceptions.expect(IllegalArgumentException.class);
         expectedExceptions.expectMessage("InputStream is null for path");
-        final List<CsvBetRecord> li = reader.read();
+        final List<BetRecord> li = reader.read();
 
     }
 

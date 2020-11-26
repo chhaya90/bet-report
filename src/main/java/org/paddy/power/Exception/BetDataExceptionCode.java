@@ -6,7 +6,7 @@ package org.paddy.power.Exception;
 public enum BetDataExceptionCode {
 
         PARAMETER_NULL_INSIDE_CODE(2000, "Parameter passed in the method is null"),
-        ERROR_READING_FROM_CSV(2001, "Parameter passed in the method is null");
+        ERROR_READING_FROM_FILE(2001, "Error reading from file");
         private final int errorCode;
         private final String errorMessage;
 

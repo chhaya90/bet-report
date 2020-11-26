@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.paddyPower</groupId>
@@ -15,6 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -50,8 +49,13 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
 
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -63,7 +67,6 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -79,7 +82,6 @@
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <encoding>UTF-8</encoding>
-
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
@@ -90,14 +92,6 @@
                             <mainClass>org.paddy.power.main.Main</mainClass>
                         </manifest>
                     </archive>
-<!--                    <resources>-->
-<!--                        <resource>-->
-<!--                            <directory>src/main/resources</directory>-->
-<!--                            <includes>-->
-<!--                                <include>**/*</include>-->
-<!--                            </includes>-->
-<!--                        </resource>-->
-<!--                    </resources>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -108,13 +102,7 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-        </testResources>
     </build>
 </project>

@@ -16,7 +16,7 @@ public class ConsoleWrite implements IWriter {
     }
 
     /**
-     * Method write Bet report
+     * Method to write Bet report.
      */
     @Override
     public void write() {
@@ -31,6 +31,10 @@ public class ConsoleWrite implements IWriter {
                         x.getTotalLiability())
         );
     }
+
+    /**
+     * Method to write betLiability Report.
+     */
 
     @Override
     public void writeTotalLiabilityReport() {

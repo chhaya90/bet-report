@@ -1,14 +1,13 @@
 package org.paddy.power.report;
 
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
@@ -22,8 +21,8 @@ import org.paddy.power.Exception.BetDataException;
 import org.paddy.power.database.reader.FileRead;
 import org.paddy.power.database.reader.Reader;
 import org.paddy.power.database.writer.ConsoleWrite;
+import org.paddy.power.dto.BetRecord;
 import org.paddy.power.dto.BetReport;
-import org.paddy.power.dto.CsvBetRecord;
 
 /**
  * Unit test for {@link ReportByLiabilityAndCurrencyTest} class.
@@ -36,13 +35,13 @@ public class ReportForTotalLiabilityByCurrencyTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     private ReportForTotalLiabilityByCurrency objectUnderTest;
-    private List<CsvBetRecord> csvBetRecordList;
+    private List<BetRecord> betRecordList;
 
     @Before
-    public void setUp() throws BetDataException {
+    public void setUp() throws BetDataException, IOException {
         Reader read = new FileRead("/bet_data_test.csv");
-        csvBetRecordList = read.read();
-        objectUnderTest = new ReportForTotalLiabilityByCurrency(consoleMock, csvBetRecordList);
+        betRecordList = read.read();
+        objectUnderTest = new ReportForTotalLiabilityByCurrency(consoleMock, betRecordList);
     }
 
     @Test
@@ -57,12 +56,12 @@ public class ReportForTotalLiabilityByCurrencyTest {
     public void whenGenerateReportListForTotalLiabilityByCurrencyIsCalled_thenExpectedResult() {
         List<BetReport> report = objectUnderTest.generateReportListForTotalLiabilityByCurrency();
         assertThat(report.size(), is(2));
-        assertThat(report.get(0).getNumberOfBets(), is(3));
-        assertThat(report.get(0).getTotalStakes(), is("£10.00"));
-        assertThat(report.get(0).getTotalLiability(), is("£50.25"));
-        assertThat(report.get(1).getNumberOfBets(), is(3));
-        assertThat(report.get(1).getTotalStakes(), is("€12.55"));
-        assertThat(report.get(1).getTotalLiability(), is("€82.40"));
+        BetReport expectedObj = new BetReport();
+        expectedObj.setCurrency("EUR");
+        expectedObj.setNumberOfBets(3);
+        expectedObj.setTotalStakes("€12.55");
+        expectedObj.setTotalLiability("€82.40");
+        assertThat(report, hasItem(expectedObj));
 
     }
 }
