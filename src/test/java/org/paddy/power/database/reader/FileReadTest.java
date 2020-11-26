@@ -29,7 +29,7 @@ public class FileReadTest {
     public void whenReadingBetData_thenRequiredNumberOfRecordIsRead() throws Exception {
         reader = new FileRead("/bet_data_test.csv");
         final List<BetData> li = reader.read();
-        assertThat(li.size(), is(24));
+        assertThat(li.size(), is(6));
     }
 
     @Test

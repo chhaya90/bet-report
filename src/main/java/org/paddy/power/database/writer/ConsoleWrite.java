@@ -6,33 +6,37 @@ import org.paddy.power.dto.ReportDao;
 
 public class ConsoleWrite implements Writer {
     private List<ReportDao> betData;
+    private final TableDrawer tableDrawer;
+
+    public ConsoleWrite(final TableDrawer tableDrawer) {
+        this.tableDrawer = tableDrawer;
+    }
 
     @Override
     public void write() {
-
-        System.out.println(String.format("%30s %5s %10s %5s %10s %5s %20s %5s %20s", "Selection Name", "|", "Currency", "|",
-                "Number_Of_Bets", "|", "Total Stakes", "|", "Total Liability"));
-        System.out.println(String.format("%s", "-------------------------------------------" +
-                "------------------------------------------------------------------------------"));
-        betData.forEach(x -> System.out.println(String.format("%30s %5s %10s %5s %14d %5s %20s %5s %20s", x.getSelectionName(), "|",
-                x.getCurrency(), "|", x.getNumberOfBets(), "|", x.getTotalStakes(), "|", x.getTotalLiability())));
+        tableDrawer.drawTableRaw(18, "Selection Name", "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
+        tableDrawer.drawLine(120);
+        betData.forEach(x ->
+                tableDrawer.drawTableRaw(18,
+                        x.getSelectionName(),
+                        x.getCurrency(),
+                        x.getNumberOfBets().toString(),
+                        x.getTotalStakes(),
+                        x.getTotalLiability())
+        );
     }
 
     @Override
     public void writeTotalLiabilityReport() {
-
-        System.out.println(String.format("%10s %5s %10s %5s %20s %5s %20s", "Currency", "|",
-                "Number_Of_Bets", "|", "Total Stakes", "|", "Total Liability"));
-
-        System.out.println(String.format("%s", "-------------------------------------------" +
-                "------------------------------------------------------------------------------"));
-
-        betData.forEach(x -> {
-            System.out.println(
-                    String.format("%10s %5s %14d %5s %20s %5s %20s",
-                            x.getCurrency(), "|", x.getNumberOfBets(), "|", x.getTotalStakes(), "|", x.getTotalLiability()));
-
-        });
+        tableDrawer.drawTableRaw(15, "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
+        tableDrawer.drawLine(80);
+        betData.forEach(x ->
+                tableDrawer.drawTableRaw(15,
+                        x.getCurrency(),
+                        x.getNumberOfBets().toString(),
+                        x.getTotalStakes(),
+                        x.getTotalLiability())
+        );
     }
 
     @Override
