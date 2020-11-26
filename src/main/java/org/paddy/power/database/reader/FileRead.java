@@ -22,7 +22,7 @@ import com.opencsv.CSVReaderBuilder;
 /**
  * Class to read Bet Data from file.
  */
-public class FileRead implements Reader {
+public class FileRead implements IReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRead.class);
     private String filePath;
 

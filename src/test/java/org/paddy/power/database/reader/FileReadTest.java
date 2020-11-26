@@ -18,7 +18,7 @@ public class FileReadTest {
     @Rule
     public ExpectedException expectedExceptions = ExpectedException.none();
 
-    private Reader reader;
+    private IReader IReader;
 
     @Before
     public void setUp() {
@@ -27,17 +27,17 @@ public class FileReadTest {
 
     @Test
     public void whenReadingBetData_thenRequiredNumberOfRecordIsRead() throws Exception {
-        reader = new FileRead("/bet_data_test.csv");
-        final List<BetRecord> li = reader.read();
+        IReader = new FileRead("/bet_data_test.csv");
+        final List<BetRecord> li = IReader.read();
         assertThat(li.size(), is(6));
     }
 
     @Test
     public void whenIncorrectCsvFileIsProvided_thenRequiredExceptionIsThrown() throws Exception {
-        reader = new FileRead("/et_data.csv");
+        IReader = new FileRead("/et_data.csv");
         expectedExceptions.expect(IllegalArgumentException.class);
         expectedExceptions.expectMessage("InputStream is null for path");
-        final List<BetRecord> li = reader.read();
+        final List<BetRecord> li = IReader.read();
 
     }
 

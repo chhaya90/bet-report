@@ -19,7 +19,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.paddy.power.Exception.BetDataException;
 import org.paddy.power.database.reader.FileRead;
-import org.paddy.power.database.reader.Reader;
+import org.paddy.power.database.reader.IReader;
 import org.paddy.power.database.writer.ConsoleWrite;
 import org.paddy.power.dto.BetRecord;
 import org.paddy.power.dto.BetReport;
@@ -39,8 +39,8 @@ public class ReportForTotalLiabilityByCurrencyTest {
 
     @Before
     public void setUp() throws BetDataException, IOException {
-        Reader read = new FileRead("/bet_data_test.csv");
-        betRecordList = read.read();
+        IReader reader = new FileRead("/bet_data_test.csv");
+        betRecordList = reader.read();
         objectUnderTest = new ReportForTotalLiabilityByCurrency(consoleMock, betRecordList);
     }
 

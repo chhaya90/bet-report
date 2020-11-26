@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.paddy.power.database.reader.FileRead;
+import org.paddy.power.database.reader.IReader;
 import org.paddy.power.database.writer.ConsoleWrite;
 import org.paddy.power.database.writer.TableDrawer;
 import org.paddy.power.dto.BetRecord;
@@ -21,8 +22,8 @@ import org.paddy.power.report.ReportForTotalLiabilityByCurrency;
 public class Main {
     public static void main(String[] args) throws Exception {
         PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
-        final FileRead fd = new FileRead(RESOURCE_FILE_PATH);
-        final List<BetRecord> list = fd.read();
+        final IReader rd = new FileRead(RESOURCE_FILE_PATH);
+        final List<BetRecord> list = rd.read();
         final IReport rp1 = new ReportByLiabilityAndCurrency(new ConsoleWrite(new TableDrawer(pw)), list);
         final IReport rp2 = new ReportForTotalLiabilityByCurrency(new ConsoleWrite(new TableDrawer(pw)), list);
 

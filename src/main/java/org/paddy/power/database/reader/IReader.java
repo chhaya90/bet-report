@@ -8,7 +8,7 @@ import org.paddy.power.dto.BetRecord;
 /**
  * Interface defining the methods from which we can get the {@link BetRecord} object(s) from Input Source.
  */
-public interface Reader {
+public interface IReader {
     /**
      * Read bet data from input source .
      *

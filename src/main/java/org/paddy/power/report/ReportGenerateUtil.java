@@ -37,10 +37,10 @@ public class ReportGenerateUtil {
     }
 
     /**
-     * Method that creates single bet report from list of csv bet data.
+     * Method that creates single bet report from list of bet record.
      * 
      * @param betRecordList
-     *            list of csv bet records.
+     *            list of bet record.
      * @param currency
      *            currency
      * @param name
