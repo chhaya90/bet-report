@@ -2,27 +2,34 @@ package org.paddy.power.main;
 
 import static org.paddy.power.utils.Constants.RESOURCE_FILE_PATH;
 
-import org.paddy.power.database.reader.FileRead;
-import org.paddy.power.database.writer.ConsoleWrite;
-import org.paddy.power.database.writer.TableDrawer;
-import org.paddy.power.report.ReportGenerator;
-
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import org.paddy.power.database.reader.FileRead;
+import org.paddy.power.database.reader.Reader;
+import org.paddy.power.database.writer.ConsoleWrite;
+import org.paddy.power.database.writer.TableDrawer;
+import org.paddy.power.dto.CsvBetRecord;
+import org.paddy.power.report.IReport;
+import org.paddy.power.report.ReportByLiabilityAndCurrency;
+import org.paddy.power.report.ReportForTotalLiabilityByCurrency;
 
 /***
  * Main application class that generate required report from Bet Data.
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        PrintWriter pw =  new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
-        ReportGenerator rp = new ReportGenerator(new FileRead(RESOURCE_FILE_PATH), new ConsoleWrite(new TableDrawer(pw)));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
+        Reader read = new FileRead(RESOURCE_FILE_PATH);
+        List<CsvBetRecord> list = read.read();
+        IReport rp1 = new ReportByLiabilityAndCurrency(new ConsoleWrite(new TableDrawer(pw)), list);
+        IReport rp2 = new ReportForTotalLiabilityByCurrency(new ConsoleWrite(new TableDrawer(pw)), list);
 
-        rp.readBetDataFromCsv();
-        rp.generateReportByLiabilityAndCurrency();
+        rp1.generateReport();
         System.out.println();
         System.out.println();
-        rp.generateReportForTotalLiabilityByCurrency();
+        rp2.generateReport();
     }
 }

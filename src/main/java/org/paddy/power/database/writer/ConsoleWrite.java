@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.paddy.power.dto.BetReport;
 
-public class ConsoleWrite implements Writer {
+/**
+ * Class to write bet report to console.
+ */
+public class ConsoleWrite implements IWriter {
     private List<BetReport> betData;
     private final TableDrawer tableDrawer;
 
@@ -12,6 +15,9 @@ public class ConsoleWrite implements Writer {
         this.tableDrawer = tableDrawer;
     }
 
+    /**
+     * Method write Bet report
+     */
     @Override
     public void write() {
         tableDrawer.drawTableRow(18, "Selection Name", "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
