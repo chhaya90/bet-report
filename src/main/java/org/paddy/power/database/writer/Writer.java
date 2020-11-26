@@ -2,7 +2,7 @@ package org.paddy.power.database.writer;
 
 import java.util.List;
 
-import org.paddy.power.dto.ReportDao;
+import org.paddy.power.dto.BetReport;
 
 /**
  * Interface to write BetData to output.
@@ -15,5 +15,5 @@ public interface Writer {
 
     void writeTotalLiabilityReport();
 
-    void setList(List<ReportDao> list);
+    void setList(List<BetReport> list);
 }

@@ -18,9 +18,12 @@ import org.mockito.junit.MockitoRule;
 import org.paddy.power.Exception.BetDataException;
 import org.paddy.power.database.reader.FileRead;
 import org.paddy.power.database.writer.ConsoleWrite;
-import org.paddy.power.dto.BetData;
-import org.paddy.power.dto.ReportDao;
+import org.paddy.power.dto.CsvBetRecord;
+import org.paddy.power.dto.BetReport;
 
+/**
+ * Unit Test for {@link ReportGenerator} class.
+ */
 public class ReportGeneratorTest {
     @Rule
     public ExpectedException expectedExceptions = ExpectedException.none();
@@ -37,15 +40,15 @@ public class ReportGeneratorTest {
     }
 
     @Test
-    public void whenReportGeneratedByLiabilityAndCurrencyIsCalledWithValidData_thenSuccessFullExecution() throws BetDataException {
-        objectUnderTest.reportGeneratedByLiabilityAndCurrency();
+    public void whenGenerateReportByLiabilityAndCurrencyIsCalledWithValidData_thenSuccessFullExecution() throws BetDataException {
+        objectUnderTest.generateReportByLiabilityAndCurrency();
         verify(consoleMock, times(1)).write();
         verify(consoleMock, times(1)).setList(any());
     }
 
     @Test
-    public void whenReportGeneratedForTotalLiabilityByCurrencyIsCalledWithValidData_thenSuccessFullExecution() throws BetDataException {
-        objectUnderTest.reportGeneratedForTotalLiabilityByCurrency();
+    public void whenGenerateReportForTotalLiabilityByCurrencyIsCalledWithValidData_thenSuccessFullExecution() throws BetDataException {
+        objectUnderTest.generateReportForTotalLiabilityByCurrency();
         verify(consoleMock, times(1)).writeTotalLiabilityReport();
         verify(consoleMock, times(1)).setList(any());
 
@@ -53,16 +56,16 @@ public class ReportGeneratorTest {
 
     @Test
     public void whenGenerateReportListForSelectionLiabilityByCurrency_thenExpectedResult() throws BetDataException {
-        final List<BetData> dataList =  objectUnderTest.getBetDataRecords();
-        final Map<String, Map<String, List<BetData>>> map = objectUnderTest.groupBySelectionNameAndCurrency(dataList);
-        List<ReportDao> report = objectUnderTest.generateReportListForSelectionLiabilityByCurrency(map);
+        final List<CsvBetRecord> dataList =  objectUnderTest.getCsvBetRecords();
+        final Map<String, Map<String, List<CsvBetRecord>>> map = objectUnderTest.groupBySelectionNameAndCurrency(dataList);
+        List<BetReport> report = objectUnderTest.generateReportListForSelectionLiabilityByCurrency(map);
         assertThat(report.size(),is(5));
     }
 
     @Test
     public void whenGenerateReportListForTotalLiabilityByCurrencyIsCalled_thenExpectedResult() {
-        final List<BetData> dataList =  objectUnderTest.getBetDataRecords();
-        List<ReportDao> report = objectUnderTest.generateReportListForTotalLiabilityByCurrency();
+        final List<CsvBetRecord> dataList =  objectUnderTest.getCsvBetRecords();
+        List<BetReport> report = objectUnderTest.generateReportListForTotalLiabilityByCurrency();
         assertThat(report.size(),is(2));
         assertThat(report.get(0).getNumberOfBets(),is(3));
         assertThat(report.get(0).getTotalStakes(),is("£10.00"));
@@ -82,10 +85,13 @@ public class ReportGeneratorTest {
 
     @Test
     public void whenGroupBySelectionNameAndCurrencyIsCalledWithValidList_thenExpectedResult() throws BetDataException {
-        final List<BetData> dataList =  objectUnderTest.getBetDataRecords();
-        Map<String, Map<String, List<BetData>>> map = objectUnderTest.groupBySelectionNameAndCurrency(dataList);
+        final List<CsvBetRecord> dataList =  objectUnderTest.getCsvBetRecords();
+        Map<String, Map<String, List<CsvBetRecord>>> map = objectUnderTest.groupBySelectionNameAndCurrency(dataList);
         assertThat(map.size(),is(4));
         assertThat(map.get(" My Fair Lady").size(),is(2));
+        assertThat(map.get(" My Fair Lady").get(" GBP").get(0).getPrice(),is(6.0));
+        assertThat(map.get(" My Fair Lady").get(" EUR").get(0).getStake(),is(3.4));
+        assertThat(map.get(" Bilbo's Adventure").size(),is(1));
     }
 
 

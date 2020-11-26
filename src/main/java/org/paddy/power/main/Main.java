@@ -20,9 +20,9 @@ public class Main {
         ReportGenerator rp = new ReportGenerator(new FileRead(RESOURCE_FILE_PATH), new ConsoleWrite(new TableDrawer(pw)));
 
         rp.readBetDataFromCsv();
-        rp.reportGeneratedByLiabilityAndCurrency();
+        rp.generateReportByLiabilityAndCurrency();
         System.out.println();
         System.out.println();
-        rp.reportGeneratedForTotalLiabilityByCurrency();
+        rp.generateReportForTotalLiabilityByCurrency();
     }
 }

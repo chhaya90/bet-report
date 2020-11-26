@@ -2,10 +2,10 @@ package org.paddy.power.database.writer;
 
 import java.util.List;
 
-import org.paddy.power.dto.ReportDao;
+import org.paddy.power.dto.BetReport;
 
 public class ConsoleWrite implements Writer {
-    private List<ReportDao> betData;
+    private List<BetReport> betData;
     private final TableDrawer tableDrawer;
 
     public ConsoleWrite(final TableDrawer tableDrawer) {
@@ -14,10 +14,10 @@ public class ConsoleWrite implements Writer {
 
     @Override
     public void write() {
-        tableDrawer.drawTableRaw(18, "Selection Name", "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
+        tableDrawer.drawTableRow(18, "Selection Name", "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
         tableDrawer.drawLine(120);
         betData.forEach(x ->
-                tableDrawer.drawTableRaw(18,
+                tableDrawer.drawTableRow(18,
                         x.getSelectionName(),
                         x.getCurrency(),
                         x.getNumberOfBets().toString(),
@@ -28,10 +28,10 @@ public class ConsoleWrite implements Writer {
 
     @Override
     public void writeTotalLiabilityReport() {
-        tableDrawer.drawTableRaw(15, "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
+        tableDrawer.drawTableRow(15, "Currency", "Number_Of_Bets", "Total Stakes", "Total Liability");
         tableDrawer.drawLine(80);
         betData.forEach(x ->
-                tableDrawer.drawTableRaw(15,
+                tableDrawer.drawTableRow(15,
                         x.getCurrency(),
                         x.getNumberOfBets().toString(),
                         x.getTotalStakes(),
@@ -40,7 +40,7 @@ public class ConsoleWrite implements Writer {
     }
 
     @Override
-    public void setList(final List<ReportDao> list) {
+    public void setList(final List<BetReport> list) {
         this.betData = list;
     }
 }

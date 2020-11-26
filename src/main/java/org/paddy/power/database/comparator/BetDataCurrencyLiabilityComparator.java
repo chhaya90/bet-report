@@ -2,12 +2,12 @@ package org.paddy.power.database.comparator;
 
 import java.util.Comparator;
 
-import org.paddy.power.dto.ReportDao;
+import org.paddy.power.dto.BetReport;
 
 /**
  * Comparator to sort the BetReport .
  */
-public class BetDataCurrencyLiabilityComparator implements Comparator<ReportDao> {
+public class BetDataCurrencyLiabilityComparator implements Comparator<BetReport> {
 
     /**
      * Method sort the BetReport data by currency and totalLiability (stakes*price) in descending order.
@@ -19,7 +19,7 @@ public class BetDataCurrencyLiabilityComparator implements Comparator<ReportDao>
      * @return int a negative integer, zero, or a positive integer
      */
     @Override
-    public int compare(final ReportDao o1, final ReportDao o2) {
+    public int compare(final BetReport o1, final BetReport o2) {
         int value = o2.getCurrency().compareTo(o1.getCurrency());
         if (value == 0) {
             String totalLiability2 = o2.getTotalLiability().substring(1);

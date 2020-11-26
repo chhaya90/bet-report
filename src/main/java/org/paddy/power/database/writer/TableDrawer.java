@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Class to draw table report.
+ */
 public class TableDrawer {
     private final PrintWriter myWriter;
 
@@ -18,11 +21,11 @@ public class TableDrawer {
         myWriter.println();
     }
 
-    public void drawTableRaw(final int columnWidth, final String... columnValues) {
-        myWriter.println(getTableRaw(columnWidth, columnValues));
+    public void drawTableRow(final int columnWidth, final String... columnValues) {
+        myWriter.println(getTableRow(columnWidth, columnValues));
     }
 
-    private String getTableRaw(final int columnWidth, final String... columnValues) {
+    String getTableRow(final int columnWidth, final String... columnValues) {
         final StringBuilder format = new StringBuilder();
         final List<String> separatedList = new ArrayList<>();
         for (int i = 0; i < columnValues.length; i++) {

@@ -3,7 +3,7 @@ package org.paddy.power.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ReportDao implements Serializable {
+public class BetReport implements Serializable {
 
     private String selectionName;
     private String currency;
@@ -65,8 +65,8 @@ public class ReportDao implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ReportDao reportDao = (ReportDao) o;
-        return Objects.equals(selectionName, reportDao.selectionName) && Objects.equals(currency, reportDao.currency) && Objects.equals(numberOfBets, reportDao.numberOfBets) && Objects.equals(totalStakes, reportDao.totalStakes) && Objects.equals(totalLiability, reportDao.totalLiability);
+        BetReport betReport = (BetReport) o;
+        return Objects.equals(selectionName, betReport.selectionName) && Objects.equals(currency, betReport.currency) && Objects.equals(numberOfBets, betReport.numberOfBets) && Objects.equals(totalStakes, betReport.totalStakes) && Objects.equals(totalLiability, betReport.totalLiability);
     }
 
     @Override

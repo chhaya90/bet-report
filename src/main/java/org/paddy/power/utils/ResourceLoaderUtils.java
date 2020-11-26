@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class ResourceLoaderUtils {
     /**
-     * Returns an input stream for reading the specified resource.
+     * Method returns an input stream from given source path.
      * 
      * @param path
      *            resource path name

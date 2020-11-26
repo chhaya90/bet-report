@@ -22,16 +22,16 @@ public class CsvUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvUtils.class);
 
     /***
-     * method that to map data read from input stream to list of dao.
+     * Method that to map data read from input stream to list of specified dto.
      * 
      * @param ip
      *            input stream reader.
      * @param bean
-     *            dao class
+     *            dto class
      * @param list
-     *            list of dao class to be populated
+     *            list of dto class to be populated
      * @param <T>
-     * @return list of dao class
+     * @return list of dto class
      * @throws BetDataException
      *             this exception will be raised for failure or interrupted input/output operation
      */

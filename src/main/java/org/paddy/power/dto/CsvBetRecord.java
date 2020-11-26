@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class BetData implements Serializable {
+public class CsvBetRecord implements Serializable {
     @CsvBindByName(column = "betId")
     private String betId;
 

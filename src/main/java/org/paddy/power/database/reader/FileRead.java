@@ -1,11 +1,10 @@
 package org.paddy.power.database.reader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.paddy.power.Exception.BetDataException;
-import org.paddy.power.dto.BetData;
+import org.paddy.power.dto.CsvBetRecord;
 import org.paddy.power.utils.CsvUtils;
 import org.paddy.power.utils.ResourceLoaderUtils;
 
@@ -20,9 +19,9 @@ public class FileRead implements Reader {
     }
 
     @Override
-    public List<BetData> read() throws BetDataException {
-        List<BetData> betDataList = new ArrayList<>();
-        betDataList = CsvUtils.readCsvToBeanList(new ResourceLoaderUtils().getClasspathResourceAsStream(filePath), BetData.class, betDataList);
-        return betDataList;
+    public List<CsvBetRecord> read() throws BetDataException {
+        List<CsvBetRecord> csvBetRecordList = new ArrayList<>();
+        csvBetRecordList = CsvUtils.readCsvToBeanList(new ResourceLoaderUtils().getClasspathResourceAsStream(filePath), CsvBetRecord.class, csvBetRecordList);
+        return csvBetRecordList;
     }
 }
